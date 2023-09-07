@@ -33,5 +33,14 @@ class Tarefa {
             );
         `).then(() => console.log("Tabela tarefa criada com sucesso"))
     }
+    public async save(task:Tarefa, id_usuario:number){
+
+        await db.query(`
+        INSERT INTO tarefa(
+            titulo, data_de_conclusao, data_de_criacao, concluida, id_usuario
+        ) VALUES ($1, $2, $3, $4, $5);
+        `, [task.titulo, task.data_de_conclusao, task.data_de_criacao, false, id_usuario])
+    }
+    
 }
 export default Tarefa

@@ -1,4 +1,5 @@
 import db from "../database/connection"
+import bcrypt from "bcryptjs"
 
 class Usuario {
 
@@ -7,7 +8,7 @@ class Usuario {
     e_mail: string;
     senha: string;
 
-    constructor(user:{id: number | null, nome: string, e_mail: string, senha: string}) {
+    constructor(user:{id?: number, nome: string, e_mail: string, senha: string}) {
         this.id = user.id ?? 0
         this.nome = user.nome
         this.e_mail = user.e_mail
@@ -24,6 +25,18 @@ class Usuario {
                 senha VARCHAR
             );
         `).then(() => console.log("Tabela usuário criada com sucesso"))
+    }
+    public static async save(user:Usuario){
+        const hash = await bcrypt.hash(user.senha, await bcrypt.genSalt(10));
+        user.senha = hash
+        
+        await db.query(`
+            INSERT INTO usuario(
+                nome, e_mail, senha
+            )VALUES ($1, $2, $3) RETURNING id;
+        `,[user.nome, user.e_mail, hash]).then(e => user.id = e.rows[0].id);
+
+        return user;
     }
 }
 
