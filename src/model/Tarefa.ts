@@ -21,14 +21,14 @@ class Tarefa {
 
     public static async create() {
         await db.query(`
-
-            CREATE TABLE tarefa (
+            DROP TABLE IF EXISTS tarefa CASCADE;
+            CREATE TABLE IF NOT EXISTS tarefa (
                 id SERIAL PRIMARY KEY UNIQUE,
                 titulo VARCHAR,
                 data_de_conclusao TIMESTAMP,
                 data_de_criacao TIMESTAMP,
                 concluida BOOLEAN,
-                id_usuario INTEGER
+                id_usuario INTEGER,
                 FOREIGN KEY (id_usuario) REFERENCES Usuario(id)
             );
         `).then(() => console.log("Tabela tarefa criada com sucesso"))

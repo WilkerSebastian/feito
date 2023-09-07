@@ -16,12 +16,13 @@ class Usuario {
 
     public static async create() {
         await db.query(`
-            CREATE TABLE usuario (
+            DROP TABLE IF EXISTS usuario CASCADE;
+            CREATE TABLE IF NOT EXISTS usuario (
                 id SERIAL PRIMARY KEY,
                 nome VARCHAR,
                 e_mail VARCHAR,
                 senha VARCHAR
-            ');
+            );
         `).then(() => console.log("Tabela usuário criada com sucesso"))
     }
 }

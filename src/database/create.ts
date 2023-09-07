@@ -1,5 +1,8 @@
 import Tarefa from "../model/Tarefa";
 import Usuario from "../model/Usuario";
 
-Tarefa.create()
-Usuario.create()
+async function create() {
+    await Tarefa.create()
+    await Usuario.create()
+}
+create()
