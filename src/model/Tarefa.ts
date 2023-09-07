@@ -19,7 +19,7 @@ class Tarefa {
         this.id_usuario = task.id_usuario
     }
 
-    public async create() {
+    public static async create() {
         await db.query(`
 
             CREATE TABLE tarefa (
@@ -34,3 +34,4 @@ class Tarefa {
         `).then(() => console.log("Tabela tarefa criada com sucesso"))
     }
 }
+export default Tarefa

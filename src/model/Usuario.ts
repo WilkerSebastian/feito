@@ -14,7 +14,7 @@ class Usuario {
         this.senha = user.senha
     }
 
-    public async create() {
+    public static async create() {
         await db.query(`
             CREATE TABLE usuario (
                 id SERIAL PRIMARY KEY,
