@@ -9,7 +9,7 @@ class Tarefa {
     concluida: boolean;
     id_usuario: number;
 
-    constructor(task: { id: number | null, titulo: string, data_de_conclusao: Date, data_de_criacao: Date, concluida: boolean, id_usuario: number }){
+    constructor(task: { id?: number, titulo: string, data_de_conclusao: Date, data_de_criacao: Date, concluida: boolean, id_usuario: number }){
         
         this.id = task.id ?? 0
         this.titulo = task.titulo
@@ -33,13 +33,18 @@ class Tarefa {
             );
         `).then(() => console.log("Tabela tarefa criada com sucesso"))
     }
+
     public async save(task:Tarefa, id_usuario:number){
 
         await db.query(`
         INSERT INTO tarefa(
             titulo, data_de_conclusao, data_de_criacao, concluida, id_usuario
         ) VALUES ($1, $2, $3, $4, $5);
-        `, [task.titulo, task.data_de_conclusao, task.data_de_criacao, false, id_usuario])
+        `, [task.titulo, task.data_de_conclusao, task.data_de_criacao, task.concluida, id_usuario])
+    }
+
+    public async update(){
+        
     }
     
 }
