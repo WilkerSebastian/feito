@@ -43,8 +43,33 @@ class Tarefa {
         `, [task.titulo, task.data_de_conclusao, task.data_de_criacao, task.concluida, id_usuario])
     }
 
-    public async update(){
+    public async update(task:Tarefa){
+        await db.query(`
+            UPDATE tarefa
+            SET
+                titulo = $1,
+                data_de_conclusao = $2
+                concluida = $3
+            WHERE
+                id = $4
+        `, [task.titulo, task.data_de_conclusao, task.concluida, task.id])
+    }
+
+    public async list(id_usuario:number){
         
+        const tarefas =  await db.query(`
+            SELECT * FROM tarefa
+            WHERE id_usuario = $1
+            ORDER by data_de_conclusao
+        `, [id_usuario])
+        return tarefas.rows
+    }
+
+    public async delete(task:Tarefa){
+        await db.query(`
+            DELETE FROM tarefa WHERE id = $1
+        `,[task.id])
+
     }
     
 }

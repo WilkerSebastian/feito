@@ -83,6 +83,13 @@ class Usuario {
             console.log(error);
         }
     }
+
+    public async delete(user:Usuario){
+        await db.query(`
+            DELETE FROM usuario WHERE id = $1
+        `,[user.id])
+
+    }
 }
 
 export default Usuario
