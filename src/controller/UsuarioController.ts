@@ -14,8 +14,10 @@ class UsuarioController{
         
         user = await Usuario.save(user);
 
+
+        
         return res.status(200).json({user:user})
-        // res.redirect("/");
+    
     }
 
     public static async update(req:Request, res:Response){
@@ -36,5 +38,19 @@ class UsuarioController{
 
         return res.status(200).json({user:user})
     }
+
+    public static async register(req:Request, res:Response) {
+
+        res.render("form", {form:"register"})
+
+    }
+
+    public static async login(req:Request, res:Response) {
+
+        res.render("from", {form:"login"})
+
+    }
+
 }
+
 export default UsuarioController

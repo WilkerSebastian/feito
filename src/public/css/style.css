@@ -1,0 +1,36 @@
+:root {
+
+    --green-light: #85FFBD;
+    --yellow-light: #FFFB7D;
+    --green-dark: #5ec58e;
+    --yellow-dark: #bcdf49;
+
+}
+
+/* background */
+
+.background {
+
+    background-image: linear-gradient(45deg, var(--green-light), var(--yellow-light));
+
+}
+
+.background-dark {
+
+    background-image: linear-gradient(90deg, var(--green-dark), var(--yellow-dark), var(--green-dark));
+
+}
+
+/* header */
+
+.header {
+
+    min-width: 100%;
+    min-height: 5vh;
+    height: 5%;
+    width: 100%;
+    top: 0%;
+    z-index: 100;
+    position: sticky;
+
+}

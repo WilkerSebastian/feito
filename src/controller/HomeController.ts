@@ -8,6 +8,12 @@ class HomeController {
 
     }
 
+    public static async term(req:Request, res:Response) {
+
+        return res.render("term")
+
+    }
+
 }
 
 export default HomeController

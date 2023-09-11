@@ -34,7 +34,7 @@ class Tarefa {
         `).then(() => console.log("Tabela tarefa criada com sucesso"))
     }
 
-    public async save(task:Tarefa, id_usuario:number){
+    public static async save(task:Tarefa, id_usuario:number){
 
         await db.query(`
         INSERT INTO tarefa(
@@ -43,7 +43,7 @@ class Tarefa {
         `, [task.titulo, task.data_de_conclusao, task.data_de_criacao, task.concluida, id_usuario])
     }
 
-    public async update(task:Tarefa){
+    public static async update(task:Tarefa){
         await db.query(`
             UPDATE tarefa
             SET
@@ -55,17 +55,16 @@ class Tarefa {
         `, [task.titulo, task.data_de_conclusao, task.concluida, task.id])
     }
 
-    public async list(id_usuario:number){
+    public static async list(id_usuario:number){
         
         const tarefas =  await db.query(`
-            SELECT * FROM tarefa
-            WHERE id_usuario = $1
+            SELECT * FROM tarefa WHERE id_usuario = $1
             ORDER by data_de_conclusao
         `, [id_usuario])
         return tarefas.rows
     }
 
-    public async delete(task:Tarefa){
+    public static async delete(task:Tarefa){
         await db.query(`
             DELETE FROM tarefa WHERE id = $1
         `,[task.id])

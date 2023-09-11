@@ -63,8 +63,7 @@ class Usuario {
         try {
 
             const user = await db.query(`
-            SELECT * FROM usuario
-            WHERE id = ${id}
+            SELECT * FROM usuario WHERE id = ${id}
             `);
             return user.rows[0];
         } catch (error) {
@@ -75,8 +74,7 @@ class Usuario {
     public static async getByEmail(e_mail:string) {
         try {
             const usuario = await db.query(`
-            SELECT * FROM usuario
-            WHERE e_mail = $1
+            SELECT * FROM usuario WHERE e_mail = $1
             `,[e_mail]);
             return usuario.rows[0]; 
         } catch (error) {
