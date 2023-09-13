@@ -13,23 +13,49 @@
 </head>
 <body class="background min-vh-100">
 
+    <script src="/jquery/jquery.min.js"></script>
+
     <header class="header background-dark">
 
         <div class="d-flex p-2">
 
             <div class="ms-auto d-flex">
 
-                <div class="me-3 mt-1 d-flex h-75">
+                <% if(user.id) { %>
 
-                    <a href="/user/login" class="btn btn-dark fs-6"> LOGIN </a>
+                    <div class="dropdown">
+ 
+                        <div class="d-flex linkagem dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+
+                            <p class="text-light my-auto mx-2 fs-3"><%= user.nome %></p>
+                            <img src="/public/img/user.png" width="50" height="50">
     
-                    <a href="/user/register" class="btn btn-danger ms-2 fs-6"> REGISTRAR </a>
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/user/login">mudar conta</a></li>
+                            <li><a class="dropdown-item" href="/user/logout">logout</a></li>
+                        </ul>
 
-                </div>
-                <img src="/public/img/user.png" width="50" height="50">
+                    </div>
+
+                <% } else { %>
+
+                    <div class="me-3 mt-1 d-flex">
+
+                        <a href="/user/login" class="btn btn-dark fs-6"> LOGIN </a>
+        
+                        <a href="/user/register" class="btn btn-danger ms-2 fs-6"> REGISTRAR </a>
+
+                    </div>
+
+                <% } %>
 
             </div>
 
+
+        </div>
+
+        <div class="alert alert-danger" role="alert" id="alerta" style="display: none;">
 
         </div>
 
@@ -40,7 +66,7 @@
 
     </main>
 
-    <script src="/jquery/jquery.min.js"></script>
+    <script user="<%= user.id %>" src="/public/js/task.js"></script>
     
 </body>
 </html>

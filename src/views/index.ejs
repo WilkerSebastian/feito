@@ -1,28 +1,64 @@
-<div class="d-flex flex-column justify-content-center">
+<% if (user.id && user.ativo)  { %>
 
-    <div class="background-dark rounded-5 w-50 border border-dark border-2 mx-auto mt-5">
+    <div id="tasks">
 
-        <div class="w-75 mx-auto mt-5">
+    </div>
 
-            <h1 class="fs-1 text-light"> Bem-vindo(a) ao <strong class="text-success"> FEITO </strong>, o Gerenciador de Tarefas que vai revolucionar a sua vida! 👋💼 </h1>
-    
-        </div>
-    
-        <p class="text-break text-body-secondary mx-auto w-75 mt-4">
-    
-            Se você gosta de organização e eficiência, está no lugar certo! 
-            Faça o login agora mesmo para desfrutar de todas as funcionalidades incríveis que o FEITO tem a oferecer.🚀
-    
-        </p>
-    
-        <div class="d-flex w-50 mx-auto my-5">
-    
-            <a href="/user/login" class="btn btn-dark fs-3"> LOGIN </a>
-    
-            <a href="/user/register" class="btn btn-danger ms-5 fs-3"> REGISTRAR </a>
-    
+    <img id="adicionar" src="/public/img/plus.png" data-bs-toggle="modal" data-bs-target="#taskmodal" class="position-fixed bottom-0 end-0 p-2 mb-5 me-3 rounded-5 bg-success linkagem" width="50" height="50">
+
+    <%- include("./includes/task.ejs") %>
+
+<% } else if(user.id) { %>
+
+    <div class="d-flex flex-column justify-content-center">
+
+        <div class="background-dark rounded-5 w-50 border border-dark border-2 mx-auto mt-5">
+
+            <div class="w-75 mx-auto mt-5">
+
+                <h1 class="fs-1 text-light"> Bem-vindo(a) ao <strong class="text-success"> FEITO </strong>, o Gerenciador de Tarefas que vai revolucionar a sua vida! 👋💼 </h1>
+        
+            </div>
+        
+            <p class="text-break text-body-secondary mx-auto w-75 mt-4">
+        
+                Verifique seu email para verificar sua conta e assim ter acesso as incríveis funcionalidades do FEITO
+                
+            </p>
+
         </div>
 
     </div>
 
-</div>
+<% } else { %>
+
+    <div class="d-flex flex-column justify-content-center">
+
+        <div class="background-dark rounded-5 w-50 border border-dark border-2 mx-auto mt-5">
+
+            <div class="w-75 mx-auto mt-5">
+
+                <h1 class="fs-1 text-light"> Bem-vindo(a) ao <strong class="text-success"> FEITO </strong>, o Gerenciador de Tarefas que vai revolucionar a sua vida! 👋💼 </h1>
+        
+            </div>
+        
+            <p class="text-break text-body-secondary mx-auto w-75 mt-4">
+        
+                Se você gosta de organização e eficiência, está no lugar certo! 
+                Faça o login agora mesmo para desfrutar de todas as funcionalidades incríveis que o FEITO tem a oferecer.🚀
+        
+            </p>
+        
+            <div class="d-flex w-50 mx-auto my-5">
+        
+                <a href="/user/login" class="btn btn-dark fs-3"> LOGIN </a>
+        
+                <a href="/user/register" class="btn btn-danger ms-5 fs-3"> REGISTRAR </a>
+        
+            </div>
+
+        </div>
+
+    </div>
+
+<% } %>

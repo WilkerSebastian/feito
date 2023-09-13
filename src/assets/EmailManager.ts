@@ -17,15 +17,15 @@ export default class EmailManager {
 
     }
 
-    public sendEmail(url:string , user:{nome:string,email:string}) {
+    public async sendEmail(url:string , user:{nome:string,email:string}) {
 
         const {nome, email} = user
 
         const mailOptions = {
             from: process.env.EMAIL,
             to: email,
-            subject: ``,
-            text: ``
+            subject: `Verificação Feito`,
+            html: `Bem vindo ${nome} ao FEITO. para finalizar acesse esse link <a href="${url}">verificação</a>`
         };
 
         this.transporter.sendMail(mailOptions)

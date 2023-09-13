@@ -34,3 +34,27 @@
     position: sticky;
 
 }
+
+/* linkagem */
+
+.linkagem:hover {
+
+    cursor: pointer;
+    scale: 1.1;
+
+}
+
+/* task */
+
+.task-card {
+
+    min-width: 25vw;
+
+}
+
+.check {
+
+    width: 2.5vw;
+    height: 5vh;
+
+}

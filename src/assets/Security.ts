@@ -1,27 +1,12 @@
-import { randomBytes } from "crypto";
 import aesjs from "aes-js"
 
 export default class Security {
 
     public static async decriptografar(cifra:string) {
 
-        let key:aesjs.ByteSource
+        const key = aesjs.utils.hex.toBytes(process.env.KEY as string)
     
-        let iv:aesjs.ByteSource
-
-        if (process.env.KEY && process.env.IV) {
-            
-            key = aesjs.utils.hex.toBytes(process.env.KEY as string)
-    
-            iv = aesjs.utils.hex.toBytes(process.env.IV as string)
-
-        } else {
-
-            key = aesjs.utils.hex.toBytes(randomBytes(32).toString("hex"))
-    
-            iv = aesjs.utils.hex.toBytes(randomBytes(16).toString("hex"))
-
-        }
+        const iv = aesjs.utils.hex.toBytes(process.env.IV as string)
     
         const aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(iv));
     
@@ -33,23 +18,9 @@ export default class Security {
  
     public static async criptografar(conteudo:string) {
 
-        let key:aesjs.ByteSource
+        const key = aesjs.utils.hex.toBytes(process.env.KEY as string)
     
-        let iv:aesjs.ByteSource
-
-        if (process.env.KEY && process.env.IV) {
-            
-            key = aesjs.utils.hex.toBytes(process.env.KEY as string)
-    
-            iv = aesjs.utils.hex.toBytes(process.env.IV as string)
-
-        } else {
-
-            key = aesjs.utils.hex.toBytes(randomBytes(32).toString("hex"))
-    
-            iv = aesjs.utils.hex.toBytes(randomBytes(16).toString("hex"))
-
-        }
+        const iv = aesjs.utils.hex.toBytes(process.env.IV as string)
     
         const aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(iv));
     

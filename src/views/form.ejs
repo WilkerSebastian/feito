@@ -4,31 +4,55 @@
 
     <div class="background-dark rounded-5 w-50 border border-dark border-2 mx-auto mt-5">
 
-        <form action="/user/save" method="post" id="register" class="p-3 w-75 mx-auto">
+        <form id="register" class="p-3 w-75 mx-auto">
 
             <div class="mb-3">
-                <label for="nome" class="form-label">Nome</label>
-                <input type="email" class="form-control" id="nome" name="nome">
-              </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email">
+              <label for="nome" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="nome" name="nome">
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Senha</label>
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="e_mail">
+            </div>
+            <div class="mb-3">
+              <label for="senha" class="form-label">Senha</label>
               <input type="password" class="form-control" id="senha" name="senha">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Confirmar senha</label>
+                <label for="senha_c" class="form-label">Confirmar senha</label>
                 <input type="password" class="form-control" id="senha_c">
               </div>
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">aceite os <a href="/term">termos de serviços</a></label>
+              <input type="checkbox" id="termo" class="form-check-input">
+              <label class="form-check-label" for="checkbox">aceite os <a href="/term">termos de serviços</a></label>
             </div>
-            <button type="submit" class="btn btn-primary">registrar</button>
+            <input type="submit" class="btn btn-primary" value="registrar"></input>
 
           </form>
+
+    </div>
+
+  </div>
+
+<% } else if (form == "login") { %>
+
+  <div class="d-flex flex-column justify-content-center my-auto" style="height: 90vh;">
+
+    <div class="background-dark rounded-5 h-75 w-50 border border-dark border-2 mx-auto mt-5">
+
+        <form id="login" class="p-3 w-75 mx-auto my-5" onsubmit='return validaUser(getUser(true), "login")' action="/user/login" method="POST">
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="senha" name="senha">
+          </div>
+          <input type="submit" class="btn btn-primary" value="registrar"></input>
+
+        </form>
 
     </div>
 

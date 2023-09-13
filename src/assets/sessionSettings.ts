@@ -4,24 +4,37 @@ import Usuario from "../model/Usuario";
 
 export async function sessionSettings(req:Request , res:Response , next:NextFunction) {
 
-    res.header('HttpOnly', 'true');
+    try {
+     
+        res.header('HttpOnly', 'true');
 
-    res.locals.navbar = false
-    res.locals.error = false
-    res.locals.id = req.cookies["id"]
-    
-    if (req.cookies["id"]) {
-
-        const id = await Security.decriptografar(req.cookies["id"]);
-        // const user = await Usuario.listNameAndImgByID(Number(id));
-
-        // res.locals.user = user
+        res.locals.id = req.cookies["id"]
         
+        if (req.cookies["id"]) {
 
-    } else {
+            const id = await Security.decriptografar(req.cookies["id"]);
 
-        res.locals.user = false
+            const user = await Usuario.getById(Number(id))
 
+            if (user) {
+            
+                user.id = req.cookies["id"]
+
+                res.locals.user = user
+
+            }
+            
+
+        } else {
+
+            res.locals.user = false
+
+        }
+
+    } catch (error) {
+        
+        console.log(error);
+        
     }
 
     next()

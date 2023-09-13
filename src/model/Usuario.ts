@@ -1,4 +1,3 @@
-import { log } from "console";
 import db from "../database/connection"
 import bcrypt from "bcryptjs"
 
@@ -65,7 +64,7 @@ class Usuario {
             const user = await db.query(`
             SELECT * FROM usuario WHERE id = ${id}
             `);
-            return user.rows[0];
+            return user.rows[0] as Usuario;
         } catch (error) {
             console.log(error);
         }
@@ -76,12 +75,12 @@ class Usuario {
             const usuario = await db.query(`
             SELECT * FROM usuario WHERE e_mail = $1
             `,[e_mail]);
-            return usuario.rows[0]; 
+            return usuario.rows[0] as Usuario; 
         } catch (error) {
             console.log(error);
         }
-    }
-
+    }  
+  
     public async delete(user:Usuario){
         await db.query(`
             DELETE FROM usuario WHERE id = $1
