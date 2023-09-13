@@ -8,7 +8,13 @@ $("#add").on("click", async () => {
 
     if ($("#date").val().trim() != "" && $("#time").val().trim() != "") {
 
-        data_conclusao = new Date(`${$("#date").val()}T${$("#time").val()}:00Z`).toLocaleString('pt-BR', {timeZone: 'UTC'})
+        const date = $("#date").val().split("-").map(e => parseInt(e))
+        const time = $("#time").val().split(":").map(e => parseInt(e))
+
+        const d = new Date()
+        d.setUTCFullYear(date[0], date[1] - 1, date[2])
+        d.setUTCHours(time[0], time[1], 0, 0)
+        data_conclusao = d
 
     }
 
@@ -30,7 +36,7 @@ $("#add").on("click", async () => {
             body: JSON.stringify({
                 task: $("#task").val().trim(),
                 data_c: data_conclusao,
-                data_i: new Date().toLocaleString('pt-BR', {timeZone: 'UTC'})
+                data_i: new Date(),
             }),
             headers: { "Content-type": "application/json; charset=UTF-8" }
         })
@@ -45,6 +51,8 @@ $("#delete").on("click", async(e) => {
 
     await fetch(`${location.origin}/task/delete/${currentTask.id}`, { method: "DELETE" })
 
+    update = false
+
     await atualizaTasks()
 
 })
@@ -57,6 +65,7 @@ async function atualizaTasks() {
     $("#date").val("")
     $("#time").val("")
 
+
     viewDelete(update)
 
     $("#tasks").html(" ")
@@ -67,11 +76,12 @@ async function atualizaTasks() {
 
     tasks.forEach(task => {
 
+
         $("#tasks").append(`
         <div class="d-flex justify-content-center">
             <div class="my-3 bg-light p-3 rounded w-25 task-card linkagem" task="${task.id}">
                 <p> ${task.titulo} </p>
-                <p> ${new Date(task.data_de_conclusao).toLocaleString() ?? ""} </p>
+                <p> ${new Date(task.data_de_conclusao).toLocaleString("pt-BR", {timeZone:"UTC"})} </p>
             </div>
 
             <input class="form-check-input ms-4 my-auto check border border-black" ${task.concluida ? `checked="checked"` : ""} type="checkbox" id="${task.id}" class="task">
@@ -93,14 +103,11 @@ async function atualizaTasks() {
 
         viewDelete(update)
 
-        let hora = (Number(new Date(currentTask.data_de_conclusao).toISOString().split("T")[1].split(":")[0]) - 4)
-
-        hora = hora > 10 ? hora : "0" + hora
-
-        const minuto = new Date(currentTask.data_de_conclusao).toISOString().split("T")[1].split(":")[1]
+        const hora = currentTask.data_de_conclusao.split("T")[1].split(":")[0]
+        const minuto = currentTask.data_de_conclusao.split("T")[1].split(":")[1]
 
         $("#task").val(currentTask.titulo)
-        $("#date").val(new Date(currentTask.data_de_conclusao).toISOString().split("T")[0])
+        $("#date").val(currentTask.data_de_conclusao.split("T")[0])
         $("#time").val(`${hora}:${minuto}`)
 
         $("#adicionar").trigger("click")

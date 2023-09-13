@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="title-task">Tarefa</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="update = false"></button>
             </div>
             <div class="modal-body">
                 
@@ -25,7 +25,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fechar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="update = false">fechar</button>
                 <button type="button" class="btn btn-danger d-none" id="delete" data-bs-dismiss="modal">excluir</button>
                 <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" id="add">salvar</button>
             </div>

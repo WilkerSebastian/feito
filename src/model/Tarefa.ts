@@ -4,19 +4,20 @@ class Tarefa {
 
     id: number;
     titulo: string;
-    data_de_conclusao: Date;
-    data_de_criacao: Date;
+    data_de_conclusao: string;
+    data_de_criacao: string;
     concluida: boolean;
     id_usuario: number;
 
-    constructor(task: { id?: number, titulo: string, data_de_conclusao: Date, data_de_criacao: Date, concluida: boolean, id_usuario: number }){
+    constructor(task: { id?: number, titulo: string, data_de_conclusao: string, data_de_criacao: string, concluida: boolean, timezone?:string, id_usuario: number }){
         
         this.id = task.id ?? 0
         this.titulo = task.titulo
-        this.data_de_conclusao = task.data_de_conclusao
-        this.data_de_criacao = task.data_de_criacao
+        this.data_de_conclusao = task.data_de_conclusao;
+        this.data_de_criacao = task.data_de_criacao;
         this.concluida = task.concluida
         this.id_usuario = task.id_usuario
+
     }
 
     public static async create() {
@@ -39,7 +40,7 @@ class Tarefa {
         await db.query(`
         INSERT INTO tarefa(
             titulo, data_de_conclusao, data_de_criacao, concluida, id_usuario
-        ) VALUES ($1, $2, $3, $4, $5);
+        ) VALUES ($1, $2 AT TIME ZONE 'America/Cuiaba', $3, $4, $5);
         `, [task.titulo, task.data_de_conclusao, task.data_de_criacao, task.concluida, task.id_usuario])
 
     }
@@ -49,7 +50,7 @@ class Tarefa {
             UPDATE tarefa
             SET
                 titulo = $1,
-                data_de_conclusao = $2,
+                data_de_conclusao = $2 AT TIME ZONE 'America/Cuiaba',
                 concluida = $3
             WHERE
                 id = $4
@@ -59,7 +60,7 @@ class Tarefa {
     public static async getById(id:number){
         
         const tarefas =  await db.query(`
-            SELECT id, titulo, data_de_conclusao, data_de_criacao, concluida FROM tarefa WHERE id = $1
+            SELECT id, titulo, data_de_conclusao AT TIME ZONE 'America/Cuiaba' as data_de_conclusao, data_de_criacao, concluida FROM tarefa WHERE id = $1
             ORDER by data_de_conclusao
         `, [id])
         return tarefas.rows[0] as Tarefa
@@ -69,7 +70,7 @@ class Tarefa {
     public static async list(id_usuario:number){
         
         const tarefas =  await db.query(`
-            SELECT id, titulo, data_de_conclusao, data_de_criacao, concluida FROM tarefa WHERE id_usuario = $1
+            SELECT id, titulo, data_de_conclusao AT TIME ZONE 'America/Cuiaba' as data_de_conclusao, data_de_criacao, concluida FROM tarefa WHERE id_usuario = $1
             ORDER by data_de_conclusao
         `, [id_usuario])
         return tarefas.rows as Tarefa[]
